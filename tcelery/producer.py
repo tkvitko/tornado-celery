@@ -12,7 +12,11 @@ try:
 except ImportError:
     # celery version 4.0+
     from kombu import Producer as TaskProducer
-from celery.backends.amqp import AMQPBackend
+try:
+    from celery.backends.amqp import AMQPBackend
+except ImportError:
+    # celery version 5.0+
+    from celery_amqp_backend.backend import AMQPBackend
 from celery.backends.redis import RedisBackend
 try:
     from celery.utils import timeutils
